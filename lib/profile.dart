@@ -1,3 +1,5 @@
+//Profile page screen UI
+
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -16,7 +18,7 @@ class _ProfileState extends State<Profile> {
             child: Column(
                 children: [
                   Stack(
-                    alignment: Alignment.topCenter,
+                    alignment: Alignment.bottomCenter,
                     children: [
                       Container(
                         height: (MediaQuery.of(context).size.height)*0.25,
@@ -30,29 +32,45 @@ class _ProfileState extends State<Profile> {
                               children: [
                                 Expanded(
                                   flex: 1,
-                                  child: IconButton(icon: Icon(Icons.arrow_back_ios_outlined), onPressed: () {
-                                    Navigator.pop(context);
-                                  }),
+                                  child: CircleAvatar(
+                                    radius: 20,
+                                    child: IconButton(icon: Icon(Icons.arrow_back_ios_outlined), onPressed: () {
+                                      Navigator.pop(context);
+                                    }),
+                                  ),
                                 ),
                                 Expanded(
                                     flex: 8,
                                     child: Text('Profile', style: TextStyle(fontSize: 20), textAlign: TextAlign.left,)),
                                 Expanded(
                                   flex: 1,
-                                  child: IconButton(icon: Icon(Icons.edit), onPressed: () {
-                                  }),
+                                  child: CircleAvatar(
+                                    radius: 20,
+                                    child: IconButton(icon: Icon(Icons.edit), onPressed: () {
+                                    }),
+                                  ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 40,),
-                            CircleAvatar(radius: 50,
-                              backgroundImage:
-                              NetworkImage("https://media-exp1.licdn.com/dms/image/C4D03AQFNGC4KjV3rPQ/profile-displayphoto-shrink_200_200/0/1621795322300?e=1634774400&v=beta&t=lGlcO8USq2opow6PYNPs4V49RVeA3VqbnCPEKXmzHA0"),
-                              backgroundColor: Colors.transparent,
-                              )
+                            SizedBox(height: 100,),
+
                           ],
                         ),
                       ),
+                      Positioned(
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))
+                          ),
+                        ),
+                      ),
+                      CircleAvatar(radius: 50,
+                        backgroundImage:
+                        NetworkImage("https://media-exp1.licdn.com/dms/image/C4D03AQFNGC4KjV3rPQ/profile-displayphoto-shrink_200_200/0/1621795322300?e=1634774400&v=beta&t=lGlcO8USq2opow6PYNPs4V49RVeA3VqbnCPEKXmzHA0"),
+                        backgroundColor: Colors.transparent,
+                      )
                     ],
                   ),
                   SizedBox(height: 20,),

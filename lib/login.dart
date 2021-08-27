@@ -1,14 +1,18 @@
+//Login Screen UI connected to reqres post api
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hackerkernel/storage.dart';
 import 'package:hackerkernel/user.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   final Function toggleView;
-  LoginPage({this.toggleView});
+  final CounterStorage storage;
+  LoginPage({this.toggleView, this.storage});
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -31,31 +35,41 @@ class _LoginPageState extends State<LoginPage> {
             Stack(
               alignment: Alignment.topCenter,
               children: [
+                /*Container(
+                  color: Colors.white,
+                  child: CustomPaint(
+                    painter: CurvePainter(),
+                  ),
+                ),*/
                 Container(
                   height: (MediaQuery.of(context).size.height)*0.3,
-                  color: Colors.orange,
+                  decoration: BoxDecoration(color: Colors.orange, borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80), bottomRight: Radius.circular(80))),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      CircleAvatar(radius: 40, backgroundColor: Colors.transparent, child: Stack(children:[
-                        Icon(Icons.all_inclusive_outlined, color: Colors.white, size: 80,),
-                        Transform.rotate(
-                            angle: 90 *3.14 /180,
-                            child: Icon(Icons.all_inclusive_outlined, color: Colors.white, size: 80, )),
-                      ]),
-                      ),
-                      SizedBox(height: 10,),
-                      Text('KARMA', style: GoogleFonts.ubuntu(fontSize: 25, color: Colors.white),),
-                      Padding(
-                        padding: const EdgeInsets.all(0.5),
-                        child: Container(height: 0.5, width: 60, color: Colors.white,),
-                      ),
-                      Text('UNITING POWER', style: TextStyle(fontSize: 8, color: Colors.white),),
-                      SizedBox(height: 5,),
-                      Text('LOGIN', style: TextStyle(fontSize: 15, color: Colors.white),)
-                    ],
+                  child: Container(
+                    height: (MediaQuery.of(context).size.height)*0.3,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(radius: 40, backgroundColor: Colors.transparent, child: Stack(children:[
+                          Icon(Icons.all_inclusive_outlined, color: Colors.white, size: 80,),
+                          Transform.rotate(
+                              angle: 90 *3.14 /180,
+                              child: Icon(Icons.all_inclusive_outlined, color: Colors.white, size: 80, )),
+                        ]),
+                        ),
+                        SizedBox(height: 10,),
+                        Text('KARMA', style: GoogleFonts.ubuntu(fontSize: 25, color: Colors.white),),
+                        Padding(
+                          padding: const EdgeInsets.all(0.5),
+                          child: Container(height: 0.5, width: 60, color: Colors.white,),
+                        ),
+                        Text('UNITING POWER', style: TextStyle(fontSize: 8, color: Colors.white),),
+                        SizedBox(height: 5,),
+                        Text('LOGIN', style: TextStyle(fontSize: 15, color: Colors.white),)
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -129,9 +143,10 @@ class _LoginPageState extends State<LoginPage> {
                           Text('Forgot Password', style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),),
                         ],
                       ),
-                      SizedBox(height: 80,),
+                      SizedBox(height: 100,),
                       Text(error, style: TextStyle(color: Colors.red),),
                       SizedBox(height: 10,),
+                      //Login button validates the form fields and posts email and password to reqres api.
                       ElevatedButton(
                           onPressed: () async {
                             if(_formKey.currentState.validate()){
@@ -150,12 +165,15 @@ class _LoginPageState extends State<LoginPage> {
                                   );
                                   print(jsonDecode(response.body));
                                   print(response.statusCode);
+                                  // Reqres api response success
                                   if(response.statusCode==200){
                                     setState(() {
                                       error='Success';
                                       widget.toggleView();
+                                      //return widget.storage.writeCounter(1);
                                     });
                                   }
+                                  //Reqres api response fails
                                   else{
                                     setState(() {
                                       error='Login Failed';
@@ -195,6 +213,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+//Login Screen Curvature Container
 class CurvePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

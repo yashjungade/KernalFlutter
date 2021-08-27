@@ -1,18 +1,22 @@
+//Drives page screen with profile button, logout button & list view.
+
 import 'package:flutter/material.dart';
 import 'package:hackerkernel/profile.dart';
+import 'package:hackerkernel/storage.dart';
 
 class Drive extends StatefulWidget {
   final Function toggleView;
-  Drive({this.toggleView});
+  final CounterStorage storage;
+  Drive({this.toggleView, this.storage});
   @override
   _DriveState createState() => _DriveState();
 }
 
 class _DriveState extends State<Drive> {
-  final List<int> joined = <int>[9523, 9785, 1050];
-  final List<bool> join = <bool>[true,true,true];
-  final List<String> category = <String>['Spiritual Empowerment', 'Spiritual Strategy', 'Spiritual Practice'];
-  final List<String> time = <String>['5 AM | 7 SEPT 2021', '5 AM | 8 SEPT 2021', '5 AM | 9 SEPT 2021'];
+  final List<int> joined = <int>[9523, 9785, 1050, 9523, 9785, 1050,];
+  final List<bool> join = <bool>[true,true,true,true,true,true];
+  final List<String> category = <String>['Spiritual Empowerment', 'Spiritual Strategy', 'Spiritual Practice','Spiritual Empowerment', 'Spiritual Strategy', 'Spiritual Practice'];
+  final List<String> time = <String>['5 AM | 7 SEPT 2021', '5 AM | 8 SEPT 2021', '5 AM | 9 SEPT 2021', '4 AM | 7 SEPT 2021', '4 AM | 8 SEPT 2021', '4 AM | 9 SEPT 2021'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +26,7 @@ class _DriveState extends State<Drive> {
         child: Column(
           children: [
             Stack(
-              alignment: Alignment.topCenter,
+              alignment: Alignment.bottomCenter,
               children: [
                 Container(
                   height: (MediaQuery.of(context).size.height)*0.25,
@@ -36,7 +40,7 @@ class _DriveState extends State<Drive> {
                         children: [
                           Expanded(
                             flex: 1,
-                            child: IconButton(icon: Icon(Icons.account_circle_rounded), onPressed: () {
+                            child: IconButton(icon: Icon(Icons.account_circle_rounded, color: Colors.white), onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => Profile()),
@@ -44,13 +48,33 @@ class _DriveState extends State<Drive> {
                             }),
                           ),
                           Expanded(
-                            flex: 8,
-                              child: Text('Karma Drives', style: TextStyle(fontSize: 20), textAlign: TextAlign.left,)),
+                            flex: 5,
+                              child: Text('Karma Drives', style: TextStyle(fontSize: 20, color: Colors.white), textAlign: TextAlign.left,)),
+                          Expanded(
+                              flex: 3,
+                              child: ElevatedButton(
+                                onPressed: (){},
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(
+                                      Colors.white,
+                                    ),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.0),
+                                        )
+                                    )
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text('My Drives', style: TextStyle(fontWeight: FontWeight.bold),),
+                                ),
+                              )),
                           Expanded(
                             flex: 1,
-                            child: IconButton(icon: Icon(Icons.login), onPressed: () {
+                            child: IconButton(icon: Icon(Icons.login, color: Colors.white), onPressed: () {
                               setState(() {
                                 widget.toggleView();
+                                //return widget.storage.writeCounter(0);
                               });
                             }),
                           ),
@@ -76,6 +100,7 @@ class _DriveState extends State<Drive> {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(0.0, 6.0, 6.0, 4.0),
                                 child: Stack(
+                                  alignment: Alignment.center,
                                   children: [
                                     CircleAvatar(backgroundColor: Colors.black, radius: 20,),
                                     IconButton(icon: Icon(Icons.search, color: Colors.white,), onPressed: () {
@@ -87,12 +112,21 @@ class _DriveState extends State<Drive> {
                           )
                         ],
                       ),
+                      SizedBox(height: 30,),
                     ],
                   ),
                 ),
+                Positioned(
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))
+                    ),
+                  ),
+                )
               ],
             ),
-            SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -110,7 +144,7 @@ class _DriveState extends State<Drive> {
                               fit: BoxFit.cover,
                             )
                           ),
-                          height: 250,
+                          height: 275,
                           child: Column(
                             children: [
                               SizedBox(height: 20,),

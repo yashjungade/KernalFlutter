@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hackerkernel/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -28,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             Stack(
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               children: [
                 Container(
                   height: (MediaQuery.of(context).size.height)*0.3,
@@ -38,16 +39,22 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      CircleAvatar(radius: 40,),
-                      SizedBox(height: 10,),
-                      Text('KARMA', style: TextStyle(fontSize: 20),),
-                      Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: Container(height: 0.5, width: 60, color: Colors.black,),
+                      CircleAvatar(radius: 40, backgroundColor: Colors.transparent, child: Stack(children:[
+                        Icon(Icons.all_inclusive_outlined, color: Colors.white, size: 80,),
+                        Transform.rotate(
+                            angle: 90 *3.14 /180,
+                            child: Icon(Icons.all_inclusive_outlined, color: Colors.white, size: 80, )),
+                      ]),
                       ),
-                      Text('UNITING POWER', style: TextStyle(fontSize: 8),),
                       SizedBox(height: 10,),
-                      Text('LOGIN', style: TextStyle(fontSize: 10),)
+                      Text('KARMA', style: GoogleFonts.ubuntu(fontSize: 25, color: Colors.white),),
+                      Padding(
+                        padding: const EdgeInsets.all(0.5),
+                        child: Container(height: 0.5, width: 60, color: Colors.white,),
+                      ),
+                      Text('UNITING POWER', style: TextStyle(fontSize: 8, color: Colors.white),),
+                      SizedBox(height: 5,),
+                      Text('LOGIN', style: TextStyle(fontSize: 15, color: Colors.white),)
                     ],
                   ),
                 ),
@@ -122,8 +129,8 @@ class _LoginPageState extends State<LoginPage> {
                           Text('Forgot Password', style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),),
                         ],
                       ),
-                      SizedBox(height: 90,),
-                      Text(error),
+                      SizedBox(height: 80,),
+                      Text(error, style: TextStyle(color: Colors.red),),
                       SizedBox(height: 10,),
                       ElevatedButton(
                           onPressed: () async {

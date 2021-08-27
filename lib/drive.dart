@@ -9,11 +9,10 @@ class Drive extends StatefulWidget {
 }
 
 class _DriveState extends State<Drive> {
-  final List<String> entries = <String>['A', 'B', 'C'];
   final List<int> joined = <int>[9523, 9785, 1050];
+  final List<bool> join = <bool>[true,true,true];
   final List<String> category = <String>['Spiritual Empowerment', 'Spiritual Strategy', 'Spiritual Practice'];
   final List<String> time = <String>['5 AM | 7 SEPT 2021', '5 AM | 8 SEPT 2021', '5 AM | 9 SEPT 2021'];
-  bool join=true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +22,14 @@ class _DriveState extends State<Drive> {
         child: Column(
           children: [
             Stack(
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               children: [
                 Container(
-                  height: (MediaQuery.of(context).size.height)*0.3,
+                  height: (MediaQuery.of(context).size.height)*0.25,
                   color: Colors.orange,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
                       Row(
@@ -158,11 +157,11 @@ class _DriveState extends State<Drive> {
                                       child: ElevatedButton(
                                         onPressed: () {
                                           setState(() {
-                                            if(join){
-                                              join=false; joined[index]-=1;
+                                            if(join[index]){
+                                              join[index]=false; joined[index]-=1;
                                             }
                                             else{
-                                              join=true; joined[index]+=1;
+                                              join[index]=true; joined[index]+=1;
                                             }
                                           });
                                         },
@@ -176,7 +175,7 @@ class _DriveState extends State<Drive> {
                                                 )
                                             )
                                         ),
-                                        child: join?Text('JOINED', style: TextStyle(color: Colors.white),):Text('LEFT', style: TextStyle(color: Colors.white),),
+                                        child: join[index]?Text('JOINED', style: TextStyle(color: Colors.white),):Text('LEFT', style: TextStyle(color: Colors.white),),
                                       ),
                                       flex: 1,
                                     ),

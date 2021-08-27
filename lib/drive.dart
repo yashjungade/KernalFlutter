@@ -10,7 +10,10 @@ class Drive extends StatefulWidget {
 
 class _DriveState extends State<Drive> {
   final List<String> entries = <String>['A', 'B', 'C'];
-  final List<int> colorCodes = <int>[600, 500, 100];
+  final List<int> joined = <int>[9523, 9785, 1050];
+  final List<String> category = <String>['Spiritual Empowerment', 'Spiritual Strategy', 'Spiritual Practice'];
+  final List<String> time = <String>['5 AM | 7 SEPT 2021', '5 AM | 8 SEPT 2021', '5 AM | 9 SEPT 2021'];
+  bool join=true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +92,121 @@ class _DriveState extends State<Drive> {
                   ),
                 ),
               ],
+            ),
+            SizedBox(height: 20,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: (MediaQuery.of(context).size.height)*0.7,
+                child: ListView.builder(
+                  itemCount: joined.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: NetworkImage('https://images.unsplash.com/photo-1509773896068-7fd415d91e2e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bmlnaHQlMjBza3l8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80'),
+                              fit: BoxFit.cover,
+                            )
+                          ),
+                          height: 250,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 20,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text('${joined[index]}', style: TextStyle(color: Colors.white, fontSize: 20),),
+                                      SizedBox(height: 5,),
+                                      Text('JOINED', style: TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 12),),
+                                    ],
+                                  ),
+                                  SizedBox(width: 20,)
+                                ],
+                              ),
+                              SizedBox(height: 10,),
+                              Row(
+                                children: [
+                                  SizedBox(width: 20,),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('CATEGORY', style: TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 12),),
+                                      SizedBox(height: 8,),
+                                      Text(category[index].toUpperCase(), style: TextStyle(color: Colors.white, fontSize: 20),),
+                                      SizedBox(height: 15,),
+                                      Row(children: [
+                                        Icon(Icons.access_time, color: Colors.white,),
+                                        SizedBox(width: 5,),
+                                        Text(time[index], style: TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 12),)
+                                      ],)
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10,),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            if(join){
+                                              join=false; joined[index]-=1;
+                                            }
+                                            else{
+                                              join=true; joined[index]+=1;
+                                            }
+                                          });
+                                        },
+                                        style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all<Color>(
+                                            Colors.lightGreen,
+                                          ),
+                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                )
+                                            )
+                                        ),
+                                        child: join?Text('JOINED', style: TextStyle(color: Colors.white),):Text('LEFT', style: TextStyle(color: Colors.white),),
+                                      ),
+                                      flex: 1,
+                                    ),
+                                    SizedBox(width: 15,),
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: () {},
+                                        style: ButtonStyle(
+                                            backgroundColor: MaterialStateProperty.all<Color>(
+                                              Colors.white,
+                                            ),
+                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(18.0),
+                                                )
+                                            )
+                                        ),
+                                        child: Text('DO KARMA', style: TextStyle(color: Colors.black),),
+                                      ),
+                                      flex: 1,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+                ),
             ),
           ],
         ),
